@@ -62,3 +62,6 @@ npm-debug.log*
 # Documentos de estrategia/roadmap (privados, solo local)
 roadmap.txt
 Documentacion/
+
+# Instrucciones locales para IA (privado)
+CLAUDE.md
