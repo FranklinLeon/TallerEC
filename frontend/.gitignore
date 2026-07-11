@@ -1,0 +1,25 @@
+# Llaves de Seguridad y Credenciales
+ai_service/google_key.json
+ai_service/.env
+frontend/.env
+core/.env
+
+# Archivos temporales de IA (Fase 4 y 5)
+ai_service/temp_*
+ai_service/*.jpg
+ai_service/*.mp3
+ai_service/*.wav
+
+# Entornos virtuales y Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Archivos de sistema y Node (Frontend)
+node_modules/
+dist/
+.DS_Store
+Thumbs.db

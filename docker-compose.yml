@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: tallerec_db
+    environment:
+      POSTGRES_DB: tallerec_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secretpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  core:
+    build: ./core
+    container_name: tallerec_core
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./core:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - ./core/.env
+    environment:
+      - POSTGRES_DB=tallerec_db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secretpassword
+      - POSTGRES_HOST=db
+
+  ai_service:
+    build: ./ai_service
+    env_file:
+      - ./ai_service/.env
+    container_name: tallerec_ai
+    command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
+    volumes:
+      - ./ai_service:/app
+    ports:
+      - "8001:8001"
+
+volumes:
+  postgres_data:
